@@ -762,4 +762,649 @@
                 <div class="stat-label">نقاط المكافآت</div>
             </div>
             <div class="stat-card">
-              
+                <div class="stat-value">48</div>
+                <div class="stat-label">مسلسل تم مشاهدته</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">12</div>
+                <div class="stat-label">في قائمة الانتظار</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">7</div>
+                <div class="stat-label">تم التحميل</div>
+            </div>
+        </div>
+        
+        <div class="section-title" style="margin-top: 20px;">إعدادات الحساب</div>
+        <div class="features-grid" id="accountSettings">
+            <!-- سيتم ملؤها بإعدادات الحساب -->
+        </div>
+    </div>
+    
+    <!-- صفحة الفيديو -->
+    <div class="video-page" id="videoPage">
+        <div class="video-header">
+            <h3 class="video-title" id="videoTitle">جاري التشغيل...</h3>
+            <button class="close-video" id="closeVideo">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="video-player">
+            <div class="video-placeholder">
+                <i class="fas fa-play-circle"></i>
+                <p id="currentPlaying">جاري تشغيل الفيديو...</p>
+                <p id="videoInfo"></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- شريط التنقل السفلي -->
+    <div class="bottom-nav">
+        <div class="nav-item active" id="navHome">
+            <i class="fas fa-home"></i>
+            <span>الرئيسية</span>
+        </div>
+        <div class="nav-item" id="navExplore">
+            <i class="fas fa-compass"></i>
+            <span>استكشاف</span>
+        </div>
+        <div class="nav-item" id="navVIP">
+            <i class="fas fa-crown"></i>
+            <span>VIP</span>
+        </div>
+        <div class="nav-item" id="navDownloads">
+            <i class="fas fa-download"></i>
+            <span>تحميلاتي</span>
+        </div>
+        <div class="nav-item" id="navAccount">
+            <i class="fas fa-user"></i>
+            <span>حسابي</span>
+        </div>
+    </div>
+
+    <script>
+        // بيانات التطبيق
+        const appData = {
+            user: {
+                name: "عمر أحمد",
+                balance: 765,
+                isVIP: true,
+                joinDate: "يناير 2024",
+                watchedShows: 48,
+                queuedShows: 12,
+                downloadedShows: 7
+            },
+            vipFeatures: [
+                {
+                    id: 1,
+                    title: "مشاهدة بدون إعلانات",
+                    description: "استمتع بمشاهدة جميع المحتويات بدون مقاطعة الإعلانات",
+                    icon: "fas fa-ad"
+                },
+                {
+                    id: 2,
+                    title: "جودة عالية HD",
+                    description: "جودة فيديو عالية الدقة لتحسين تجربة المشاهدة",
+                    icon: "fas fa-hd"
+                },
+                {
+                    id: 3,
+                    title: "تحميل غير محدود",
+                    description: "قم بتحميل عدد غير محدود من الحلقات للمشاهدة دون اتصال",
+                    icon: "fas fa-download"
+                },
+                {
+                    id: 4,
+                    title: "وصول مبكر للحلقات",
+                    description: "احصل على الحلقات الجديدة قبل الجميع بـ 24 ساعة",
+                    icon: "fas fa-clock"
+                }
+            ],
+            vipPlans: [
+                {
+                    id: 1,
+                    name: "شهري",
+                    price: "$9.99",
+                    period: "شهر",
+                    popular: false,
+                    features: [
+                        "مشاهدة بدون إعلانات",
+                        "جودة HD",
+                        "تحميل 10 حلقات شهرياً",
+                        "دعم فني 24/7"
+                    ]
+                },
+                {
+                    id: 2,
+                    name: "سنوي",
+                    price: "$95.99",
+                    period: "سنة",
+                    popular: true,
+                    features: [
+                        "مشاهدة بدون إعلانات",
+                        "جودة 4K Ultra HD",
+                        "تحميل غير محدود",
+                        "وصول مبكر للحلقات",
+                        "دعم فني مميز"
+                    ]
+                }
+            ],
+            categories: [
+                { name: "دراما", shows: 45, color: "#ff4081" },
+                { name: "رومانسي", shows: 32, color: "#ff6b8b" },
+                { name: "أنمي", shows: 28, color: "#4CAF50" },
+                { name: "أكشن", shows: 38, color: "#2196F3" },
+                { name: "كوميدي", shows: 22, color: "#FFC107" },
+                { name: "تشويق", shows: 19, color: "#9C27B0" }
+            ],
+            newShows: [
+                { name: "مواعدة صديق أبي المقرب", episodes: "12 حلقة", image: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
+                { name: "استيقظت كأسوأ زوج لها", episodes: "24 حلقة", image: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
+                { name: "العيون الإلهية", episodes: "30 حلقة", image: "https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" },
+                { name: "خبرة ينتصر والذهب يسقط", episodes: "20 حلقة", image: "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" }
+            ],
+            downloads: [
+                { name: "مواعدة صديق أبي المقرب", size: "1.2 GB", progress: 100, episodes: "حلقتان" },
+                { name: "استيقظت كأسوأ زوج لها", size: "2.5 GB", progress: 75, episodes: "5 حلقات" },
+                { name: "العيون الإلهية", size: "3.1 GB", progress: 30, episodes: "3 حلقات" },
+                { name: "تزوجت بالصدفة من الأميرة النائمة", size: "1.8 GB", progress: 100, episodes: "4 حلقات" }
+            ],
+            accountSettings: [
+                { title: "تعديل الملف الشخصي", icon: "fas fa-user-edit", action: "editProfile" },
+                { title: "إشعارات", icon: "fas fa-bell", action: "notifications" },
+                { title: "الخصوصية", icon: "fas fa-lock", action: "privacy" },
+                { title: "المساعدة والدعم", icon: "fas fa-headset", action: "support" }
+            ]
+        };
+
+        // العناصر الرئيسية
+        const vipPageMain = document.getElementById('vipPageMain');
+        const explorePage = document.getElementById('explorePage');
+        const downloadsPage = document.getElementById('downloadsPage');
+        const accountPage = document.getElementById('accountPage');
+        const videoPage = document.getElementById('videoPage');
+        
+        // أزرار التنقل السفلي
+        const navHome = document.getElementById('navHome');
+        const navExplore = document.getElementById('navExplore');
+        const navVIP = document.getElementById('navVIP');
+        const navDownloads = document.getElementById('navDownloads');
+        const navAccount = document.getElementById('navAccount');
+        
+        // أزرار أخرى
+        const searchBtn = document.getElementById('searchBtn');
+        const notificationsBtn = document.getElementById('notificationsBtn');
+        const accountBtn = document.getElementById('accountBtn');
+        const closeVideo = document.getElementById('closeVideo');
+        const userBalance = document.getElementById('userBalance');
+        const manageDownloadsBtn = document.getElementById('manageDownloadsBtn');
+        
+        // العناصر الديناميكية
+        const vipFeatures = document.getElementById('vipFeatures');
+        const vipPlans = document.getElementById('vipPlans');
+        const categoriesGrid = document.getElementById('categoriesGrid');
+        const newShowsGrid = document.getElementById('newShowsGrid');
+        const downloadsList = document.getElementById('downloadsList');
+        const accountSettings = document.getElementById('accountSettings');
+        const videoTitle = document.getElementById('videoTitle');
+        const currentPlaying = document.getElementById('currentPlaying');
+        const videoInfo = document.getElementById('videoInfo');
+
+        // تهيئة التطبيق
+        function initApp() {
+            // تحميل بيانات VIP
+            loadVIPFeatures();
+            loadVIPPlans();
+            
+            // تحميل بيانات الاستكشاف
+            loadCategories();
+            loadNewShows();
+            
+            // تحميل بيانات التحميلات
+            loadDownloads();
+            
+            // تحميل إعدادات الحساب
+            loadAccountSettings();
+            
+            // إضافة المستمعين للأحداث
+            setupEventListeners();
+            
+            // تحديث واجهة المستخدم
+            updateUI();
+            
+            // تعيين الصفحة النشطة
+            setActivePage('vip');
+        }
+
+        // تحميل ميزات VIP
+        function loadVIPFeatures() {
+            vipFeatures.innerHTML = '';
+            
+            appData.vipFeatures.forEach(feature => {
+                const featureCard = document.createElement('div');
+                featureCard.className = 'feature-card';
+                featureCard.dataset.id = feature.id;
+                
+                featureCard.innerHTML = `
+                    <div class="feature-icon">
+                        <i class="${feature.icon}"></i>
+                    </div>
+                    <h3 class="feature-title">${feature.title}</h3>
+                    <p class="feature-desc">${feature.description}</p>
+                `;
+                
+                vipFeatures.appendChild(featureCard);
+            });
+        }
+
+        // تحميل باقات VIP
+        function loadVIPPlans() {
+            vipPlans.innerHTML = '';
+            
+            appData.vipPlans.forEach(plan => {
+                const planCard = document.createElement('div');
+                planCard.className = `plan-card ${plan.popular ? 'popular' : ''}`;
+                planCard.dataset.id = plan.id;
+                
+                let featuresHTML = '';
+                plan.features.forEach(feature => {
+                    featuresHTML += `
+                        <li>
+                            <span>${feature}</span>
+                            <i class="fas fa-check"></i>
+                        </li>
+                    `;
+                });
+                
+                planCard.innerHTML = `
+                    ${plan.popular ? '<div class="popular-badge">الأكثر شعبية</div>' : ''}
+                    <h3 class="plan-name">${plan.name}</h3>
+                    <div class="plan-price">${plan.price}</div>
+                    <div class="plan-period">لكل ${plan.period}</div>
+                    <ul class="plan-features">
+                        ${featuresHTML}
+                    </ul>
+                    <button class="subscribe-btn ${plan.popular ? '' : 'secondary'}" data-plan="${plan.id}">
+                        ${plan.popular ? 'اشترك الآن' : 'اختر هذه الخطة'}
+                    </button>
+                `;
+                
+                vipPlans.appendChild(planCard);
+            });
+            
+            // إضافة مستمعي الأحداث لأزرار الاشتراك
+            document.querySelectorAll('.subscribe-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const planId = this.dataset.plan;
+                    subscribeToPlan(planId);
+                });
+            });
+        }
+
+        // تحميل التصنيفات
+        function loadCategories() {
+            categoriesGrid.innerHTML = '';
+            
+            appData.categories.forEach(category => {
+                const categoryCard = document.createElement('div');
+                categoryCard.className = 'explore-card';
+                categoryCard.dataset.category = category.name;
+                
+                categoryCard.innerHTML = `
+                    <div style="background-color: ${category.color}; height: 120px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                        <i class="fas fa-film" style="font-size: 40px; color: white;"></i>
+                        <span style="color: white; margin-top: 10px; font-size: 14px;">${category.shows} مسلسل</span>
+                    </div>
+                    <h3>${category.name}</h3>
+                `;
+                
+                categoriesGrid.appendChild(categoryCard);
+            });
+            
+            // إضافة مستمعي الأحداث للتصنيفات
+            document.querySelectorAll('.explore-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const category = this.dataset.category;
+                    exploreCategory(category);
+                });
+            });
+        }
+
+        // تحميل المسلسلات الجديدة
+        function loadNewShows() {
+            newShowsGrid.innerHTML = '';
+            
+            appData.newShows.forEach(show => {
+                const showCard = document.createElement('div');
+                showCard.className = 'explore-card';
+                showCard.dataset.show = show.name;
+                
+                showCard.innerHTML = `
+                    <img src="${show.image}" alt="${show.name}">
+                    <h3>${show.name}<br><span style="font-size: 12px; color: #aaa;">${show.episodes}</span></h3>
+                `;
+                
+                newShowsGrid.appendChild(showCard);
+            });
+            
+            // إضافة مستمعي الأحداث للمسلسلات
+            document.querySelectorAll('.explore-card[data-show]').forEach(card => {
+                card.addEventListener('click', function() {
+                    const showName = this.dataset.show;
+                    playShow(showName);
+                });
+            });
+        }
+
+        // تحميل التحميلات
+        function loadDownloads() {
+            downloadsList.innerHTML = '';
+            
+            appData.downloads.forEach(download => {
+                const downloadItem = document.createElement('div');
+                downloadItem.className = 'download-item';
+                downloadItem.dataset.name = download.name;
+                
+                const progressColor = download.progress === 100 ? '#4CAF50' : '#ff4081';
+                
+                downloadItem.innerHTML = `
+                    <img src="https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="${download.name}">
+                    <div class="download-info">
+                        <h3 class="download-name">${download.name}</h3>
+                        <p class="download-size">${download.size} • ${download.episodes}</p>
+                        <div class="download-progress">
+                            <div class="progress-bar" style="width: ${download.progress}%; background-color: ${progressColor};"></div>
+                        </div>
+                        <div class="download-actions">
+                            ${download.progress === 100 ? 
+                                `<button class="download-btn" data-action="play" data-name="${download.name}">
+                                    <i class="fas fa-play"></i> تشغيل
+                                </button>
+                                <button class="download-btn" data-action="delete" data-name="${download.name}">
+                                    <i class="fas fa-trash"></i> حذف
+                                </button>` :
+                                `<button class="download-btn" data-action="pause" data-name="${download.name}">
+                                    <i class="fas fa-pause"></i> إيقاف مؤقت
+                                </button>
+                                <button class="download-btn" data-action="cancel" data-name="${download.name}">
+                                    <i class="fas fa-times"></i> إلغاء
+                                </button>`
+                            }
+                        </div>
+                    </div>
+                `;
+                
+                downloadsList.appendChild(downloadItem);
+            });
+            
+            // إضافة مستمعي الأحداث لأزرار التحميل
+            document.querySelectorAll('.download-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const action = this.dataset.action;
+                    const name = this.dataset.name;
+                    
+                    switch(action) {
+                        case 'play':
+                            playDownloadedShow(name);
+                            break;
+                        case 'delete':
+                            deleteDownload(name);
+                            break;
+                        case 'pause':
+                            pauseDownload(name);
+                            break;
+                        case 'cancel':
+                            cancelDownload(name);
+                            break;
+                    }
+                });
+            });
+        }
+
+        // تحميل إعدادات الحساب
+        function loadAccountSettings() {
+            accountSettings.innerHTML = '';
+            
+            appData.accountSettings.forEach(setting => {
+                const settingCard = document.createElement('div');
+                settingCard.className = 'feature-card';
+                settingCard.dataset.action = setting.action;
+                
+                settingCard.innerHTML = `
+                    <div class="feature-icon">
+                        <i class="${setting.icon}"></i>
+                    </div>
+                    <h3 class="feature-title">${setting.title}</h3>
+                `;
+                
+                accountSettings.appendChild(settingCard);
+            });
+            
+            // إضافة مستمعي الأحداث لإعدادات الحساب
+            document.querySelectorAll('.feature-card[data-action]').forEach(card => {
+                card.addEventListener('click', function() {
+                    const action = this.dataset.action;
+                    handleAccountAction(action);
+                });
+            });
+        }
+
+        // إعداد مستمعي الأحداث
+        function setupEventListeners() {
+            // التنقل السفلي
+            navHome.addEventListener('click', () => setActivePage('vip'));
+            navExplore.addEventListener('click', () => setActivePage('explore'));
+            navVIP.addEventListener('click', () => setActivePage('vip'));
+            navDownloads.addEventListener('click', () => setActivePage('downloads'));
+            navAccount.addEventListener('click', () => setActivePage('account'));
+            
+            // أزرار الشريط العلوي
+            searchBtn.addEventListener('click', showSearch);
+            notificationsBtn.addEventListener('click', showNotifications);
+            accountBtn.addEventListener('click', () => setActivePage('account'));
+            
+            // أزرار أخرى
+            closeVideo.addEventListener('click', closeVideoPage);
+            manageDownloadsBtn.addEventListener('click', manageDownloads);
+        }
+
+        // تحديث واجهة المستخدم
+        function updateUI() {
+            userBalance.textContent = appData.user.isVIP ? 'VIP' : `${appData.user.balance}+`;
+        }
+
+        // تعيين الصفحة النشطة
+        function setActivePage(page) {
+            // إخفاء جميع الصفحات
+            vipPageMain.style.display = 'none';
+            explorePage.style.display = 'none';
+            downloadsPage.style.display = 'none';
+            accountPage.style.display = 'none';
+            videoPage.style.display = 'none';
+            
+            // إزالة النشاط من جميع أزرار التنقل
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // عرض الصفحة المطلوبة وتعيين الزر النشط
+            switch(page) {
+                case 'vip':
+                    vipPageMain.style.display = 'block';
+                    navVIP.classList.add('active');
+                    break;
+                case 'explore':
+                    explorePage.style.display = 'block';
+                    navExplore.classList.add('active');
+                    break;
+                case 'downloads':
+                    downloadsPage.style.display = 'block';
+                    navDownloads.classList.add('active');
+                    break;
+                case 'account':
+                    accountPage.style.display = 'block';
+                    navAccount.classList.add('active');
+                    break;
+            }
+        }
+
+        // الاشتراك في خطة
+        function subscribeToPlan(planId) {
+            const plan = appData.vipPlans.find(p => p.id == planId);
+            if (plan) {
+                const confirmMessage = plan.popular ? 
+                    `هل أنت متأكد من الاشتراك في الخطة السنوية بقيمة ${plan.price}؟` :
+                    `هل أنت متأكد من الاشتراك في الخطة الشهرية بقيمة ${plan.price}؟`;
+                
+                if (confirm(confirmMessage)) {
+                    appData.user.isVIP = true;
+                    updateUI();
+                    alert(`تم تفعيل الاشتراك في خطة ${plan.name} بنجاح! يمكنك الآن الاستمتاع بجميع مميزات VIP.`);
+                    
+                    // تحديث حالة المستخدم في الواجهة
+                    document.querySelector('.profile-info p').textContent = `عضو VIP منذ: ${appData.user.joinDate}`;
+                }
+            }
+        }
+
+        // استكشاف تصنيف
+        function exploreCategory(category) {
+            alert(`جاري تحميل مسلسلات تصنيف: ${category}\n\nسيتم عرض جميع المسلسلات في هذا التصنيف.`);
+            // في التطبيق الحقيقي، قد تنتقل إلى صفحة مع مسلسلات هذا التصنيف
+        }
+
+        // تشغيل مسلسل
+        function playShow(showName) {
+            videoTitle.textContent = showName;
+            currentPlaying.textContent = `جاري تشغيل: ${showName}`;
+            videoInfo.textContent = `جودة عالية HD • بدون إعلانات`;
+            videoPage.style.display = 'flex';
+            
+            // محاكاة تشغيل الفيديو
+            setTimeout(() => {
+                alert(`تم بدء تشغيل ${showName}`);
+            }, 500);
+        }
+
+        // تشغيل مسلسل محمّل
+        function playDownloadedShow(showName) {
+            videoTitle.textContent = showName;
+            currentPlaying.textContent = `جاري تشغيل (محمّل): ${showName}`;
+            videoInfo.textContent = `مشاهدة دون اتصال • جودة عالية`;
+            videoPage.style.display = 'flex';
+            
+            setTimeout(() => {
+                alert(`تم بدء تشغيل ${showName} من التحميلات المحلية`);
+            }, 500);
+        }
+
+        // حذف تحميل
+        function deleteDownload(showName) {
+            if (confirm(`هل أنت متأكد من حذف تحميل "${showName}"؟`)) {
+                alert(`تم حذف تحميل ${showName} بنجاح`);
+                // في التطبيق الحقيقي، قد تقوم بإزالة العنصر من القائمة وتحديث الواجهة
+                loadDownloads();
+            }
+        }
+
+        // إيقاف تحميل مؤقتاً
+        function pauseDownload(showName) {
+            alert(`تم إيقاف تحميل ${showName} مؤقتاً`);
+            // في التطبيق الحقيقي، قد تقوم بتحديث حالة التحميل
+        }
+
+        // إلغاء تحميل
+        function cancelDownload(showName) {
+            if (confirm(`هل أنت متأكد من إلغاء تحميل "${showName}"؟`)) {
+                alert(`تم إلغاء تحميل ${showName}`);
+                // في التطبيق الحقيقي، قد تقوم بإزالة العنصر من القائمة وتحديث الواجهة
+                loadDownloads();
+            }
+        }
+
+        // إدارة التحميلات
+        function manageDownloads() {
+            alert('صفحة إدارة التحميلات:\n\nهنا يمكنك:\n1. تغيير موقع التحميل\n2. تحديد جودة التحميل التلقائي\n3. حذف جميع التحميلات\n4. إدارة مساحة التخزين');
+        }
+
+        // إغلاق صفحة الفيديو
+        function closeVideoPage() {
+            videoPage.style.display = 'none';
+            setActivePage('vip');
+        }
+
+        // عرض البحث
+        function showSearch() {
+            const searchTerm = prompt('أدخل كلمة للبحث عن مسلسل أو تصنيف:');
+            if (searchTerm) {
+                alert(`نتائج البحث عن: "${searchTerm}"\n\nتم العثور على 12 مسلسلاً و 3 تصنيفات مطابقة.`);
+            }
+        }
+
+        // عرض الإشعارات
+        function showNotifications() {
+            const notifications = [
+                "الحلقة الجديدة من 'مواعدة صديق أبي المقرب' متاحة الآن",
+                "لديك 3 مسلسلات في قائمة الانتظار",
+                "اشتراك VIP الخاص بك سينتهي خلال 7 أيام",
+                "حصلت على 50 نقطة مكافأة لمشاهدة 5 حلقات",
+                "تحميل 'استيقظت كأسوأ زوج لها' اكتمل بنجاح"
+            ];
+            
+            let message = "الإشعارات:\n\n";
+            notifications.forEach((note, index) => {
+                message += `${index + 1}. ${note}\n`;
+            });
+            
+            alert(message);
+        }
+
+        // معالجة إجراءات الحساب
+        function handleAccountAction(action) {
+            switch(action) {
+                case 'editProfile':
+                    editProfile();
+                    break;
+                case 'notifications':
+                    manageNotifications();
+                    break;
+                case 'privacy':
+                    showPrivacySettings();
+                    break;
+                case 'support':
+                    contactSupport();
+                    break;
+            }
+        }
+
+        // تعديل الملف الشخصي
+        function editProfile() {
+            const newName = prompt('أدخل اسمك الجديد:', appData.user.name);
+            if (newName && newName.trim() !== '') {
+                appData.user.name = newName;
+                document.querySelector('.profile-info h2').textContent = newName;
+                alert('تم تحديث الاسم بنجاح');
+            }
+        }
+
+        // إدارة الإشعارات
+        function manageNotifications() {
+            alert('إعدادات الإشعارات:\n\nهنا يمكنك تفعيل أو إيقاف:\n1. إشعارات الحلقات الجديدة\n2. إشعارات اكتمال التحميل\n3. عروض وتخفيضات VIP\n4. التحديثات والتطويرات');
+        }
+
+        // إعدادات الخصوصية
+        function showPrivacySettings() {
+            alert('إعدادات الخصوصية:\n\n1. من يمكنه رؤية قائمة مشاهداتك\n2. إخفاء مسلسلاتك المفضلة\n3. حذف سجل المشاهدة\n4. تصدير بيانات الحساب');
+        }
+
+        // الاتصال بالدعم
+        function contactSupport() {
+            alert('الدعم الفني:\n\nللتواصل مع الدعم الفني:\n1. البريد الإلكتروني: support@mashahati.com\n2. الهاتف: 800-123-4567\n3. الدردشة الحية: متاحة 24/7\n\nسيتم الرد على استفساراتك خلال 24 ساعة.');
+        }
+
+        // بدء التطبيق عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
